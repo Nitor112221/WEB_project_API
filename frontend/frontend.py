@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from data.ui_py_design.main_ui import UiMainWindow
 import backend.backend as backend
+from PyQt5.QtCore import Qt
 
 
 class MainApplication(QMainWindow, UiMainWindow):
@@ -11,8 +12,20 @@ class MainApplication(QMainWindow, UiMainWindow):
         self.setupUi(self)
         self.setWindowTitle('API Application')
         self.setFixedSize(self.size())
-        self.pixmap = backend.get_map(lon="37.530887", lat="55.703118", delta="0.002")
-        self.label.setPixmap(self.pixmap)
+        self.delta = 0.002
+        self.update_map()
+
+    def update_map(self):
+        pixmap = backend.get_map(lon="37.530887", lat="55.703118", delta=str(self.delta))
+        self.label.setPixmap(pixmap)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_PageUp:
+            self.delta -= 0.0005
+        elif event.key() == Qt.Key_PageDown:
+            self.delta += 0.0005
+        self.delta = min(1., max(0., self.delta))
+        self.update_map()
 
 
 app = QApplication(sys.argv)
