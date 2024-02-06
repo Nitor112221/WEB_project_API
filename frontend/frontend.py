@@ -13,6 +13,8 @@ class MainApplication(QMainWindow, UiMainWindow):
         self.setWindowTitle('API Application')
         self.setFixedSize(self.size())
         self.delta = 0.002
+        self.shift_x = self.delta
+        self.shift_y = self.delta
         self.update_map()
 
     def update_map(self):
@@ -26,6 +28,15 @@ class MainApplication(QMainWindow, UiMainWindow):
             self.delta += 0.0005
         self.delta = min(1., max(0., self.delta))
         self.update_map()
+
+        if event.key() == Qt.Key_Down:
+            pass
+        elif event.key() == Qt.Key_Up:
+            pass
+        elif event.key() == Qt.Key_Left:
+            pass
+        elif event.key() == Qt.Key_Right:
+            pass
 
 
 app = QApplication(sys.argv)
