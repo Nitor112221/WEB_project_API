@@ -1,8 +1,6 @@
 import sys
 
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from data.ui_py_design.main_ui import UiMainWindow
 import backend.backend as backend
 

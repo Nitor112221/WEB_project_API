@@ -2,7 +2,6 @@ import requests
 from io import BytesIO
 
 from PyQt5.QtGui import QPixmap
-from PIL import Image
 
 api_server = "http://static-maps.yandex.ru/1.x/"
 
