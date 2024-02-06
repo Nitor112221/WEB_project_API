@@ -11,14 +11,17 @@ class MainApplication(QMainWindow, UiMainWindow):
         super(MainApplication, self).__init__()
         self.setupUi(self)
         self.setWindowTitle('API Application')
+        self.lon = 37.530887
+        self.lat = 55.703118
         self.setFixedSize(self.size())
         self.delta = 0.002
-        self.shift_x = self.delta
-        self.shift_y = self.delta
         self.update_map()
 
     def update_map(self):
-        pixmap = backend.get_map(lon="37.530887", lat="55.703118", delta=str(self.delta))
+        pixmap = backend.get_map(lon=str(self.lon), lat=str(self.lat), delta=str(self.delta))
+        if pixmap is None:
+            print('Неудачный запрос :(, попробуйте сново')
+            return
         self.label.setPixmap(pixmap)
 
     def keyPressEvent(self, event):
@@ -27,16 +30,24 @@ class MainApplication(QMainWindow, UiMainWindow):
         elif event.key() == Qt.Key_PageDown:
             self.delta += 0.0005
         self.delta = min(1., max(0., self.delta))
-        self.update_map()
 
         if event.key() == Qt.Key_Down:
-            pass
+            self.lat -= self.delta * 2
         elif event.key() == Qt.Key_Up:
-            pass
+            self.lat += self.delta * 2
         elif event.key() == Qt.Key_Left:
-            pass
+            self.lon -= self.delta * 2
         elif event.key() == Qt.Key_Right:
-            pass
+            self.lon += self.delta * 2
+        if self.lat > 90:
+            self.lat -= 180
+        elif self.lat < -90:
+            self.lat += 180
+        if self.lon > 90:
+            self.lon -= 180
+        elif self.lon < -90:
+            self.lon += 180
+        self.update_map()
 
 
 app = QApplication(sys.argv)
