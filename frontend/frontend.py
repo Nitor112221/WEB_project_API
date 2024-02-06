@@ -1,8 +1,10 @@
 import sys
 
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from data.ui_py_design.main_ui import UiMainWindow
+import backend.backend as backend
 
 
 class MainApplication(QMainWindow, UiMainWindow):
@@ -11,6 +13,8 @@ class MainApplication(QMainWindow, UiMainWindow):
         self.setupUi(self)
         self.setWindowTitle('API Application')
         self.setFixedSize(self.size())
+        self.pixmap = backend.get_map(lon="37.530887", lat="55.703118", delta="0.002")
+        self.label.setPixmap(self.pixmap)
 
 
 app = QApplication(sys.argv)

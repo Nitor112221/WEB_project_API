@@ -1,5 +1,7 @@
 import requests
 from io import BytesIO
+
+from PyQt5.QtGui import QPixmap
 from PIL import Image
 
 api_server = "http://static-maps.yandex.ru/1.x/"
@@ -15,6 +17,7 @@ def get_map(lon: str, lat: str, delta: str):
     if not response:
         # обработка ошибочной ситуации
         return None
-    img = Image.open(BytesIO(
-        response.content))
-    return img
+    img = BytesIO(response.content)
+    qpixmap = QPixmap()
+    qpixmap.loadFromData(img.read())
+    return qpixmap
