@@ -6,11 +6,11 @@ from PyQt5.QtGui import QPixmap
 api_server = "http://static-maps.yandex.ru/1.x/"
 
 
-def get_map(lon: str, lat: str, delta: str):
+def get_map(lon: str, lat: str, delta: str, ltype='map'):
     params = {
         "ll": ",".join([lon, lat]),
         "spn": ",".join([delta, delta]),
-        "l": "map"
+        'l': f"{ltype}"
     }
     response = requests.get(api_server, params=params)
     if not response:

@@ -13,16 +13,33 @@ class MainApplication(QMainWindow, UiMainWindow):
         self.setWindowTitle('API Application')
         self.lon = 37.530887
         self.lat = 55.703118
+        self.ltype = 'map'
         self.setFixedSize(self.size())
         self.delta = 0.002
         self.update_map()
 
+        self.btn_clicked()
+
+    def btn_clicked(self):
+        self.btn_scheme.clicked.connect(self.update_view_map)
+        self.btn_satellite.clicked.connect(self.update_view_map)
+        self.btn_hybrid.clicked.connect(self.update_view_map)
+
+    def update_view_map(self):
+        if self.sender().text() == 'Схема':
+            self.ltype = 'map'
+        elif self.sender().text() == 'Спутник':
+            self.ltype = 'sat'
+        elif self.sender().text() == 'Гибрид':
+            self.ltype = 'sat,skl'
+        self.update_map()
+
     def update_map(self):
-        pixmap = backend.get_map(lon=str(self.lon), lat=str(self.lat), delta=str(self.delta))
+        pixmap = backend.get_map(lon=str(self.lon), lat=str(self.lat), delta=str(self.delta), ltype=self.ltype)
         if pixmap is None:
             print('Неудачный запрос :(, попробуйте сново')
             return
-        self.label.setPixmap(pixmap)
+        self.label_map.setPixmap(pixmap)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp:
@@ -39,6 +56,7 @@ class MainApplication(QMainWindow, UiMainWindow):
             self.lon -= self.delta * 2
         elif event.key() == Qt.Key_Right:
             self.lon += self.delta * 2
+
         if self.lat > 90:
             self.lat -= 180
         elif self.lat < -90:
