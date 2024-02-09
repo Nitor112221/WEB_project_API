@@ -17,20 +17,14 @@ class MainApplication(QMainWindow, UiMainWindow):
         self.setFixedSize(self.size())
         self.delta = 0.002
         self.update_map()
-
-        self.btn_clicked()
-
-    def btn_clicked(self):
-        self.btn_scheme.clicked.connect(self.update_view_map)
-        self.btn_satellite.clicked.connect(self.update_view_map)
-        self.btn_hybrid.clicked.connect(self.update_view_map)
+        self.type_map.currentTextChanged.connect(self.update_view_map)
 
     def update_view_map(self):
-        if self.sender().text() == 'Схема':
+        if self.type_map.currentText() == 'Схема':
             self.ltype = 'map'
-        elif self.sender().text() == 'Спутник':
+        elif self.type_map.currentText() == 'Спутник':
             self.ltype = 'sat'
-        elif self.sender().text() == 'Гибрид':
+        elif self.type_map.currentText() == 'Гибрид':
             self.ltype = 'sat,skl'
         self.update_map()
 

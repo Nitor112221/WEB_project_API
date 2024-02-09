@@ -27,38 +27,30 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QComboBox" name="type_map">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>10</y>
-      <width>501</width>
-      <height>28</height>
+      <x>10</x>
+      <y>20</y>
+      <width>69</width>
+      <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="btn_scheme">
-       <property name="text">
-        <string>Схема</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_satellite">
-       <property name="text">
-        <string>Спутник</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_hybrid">
-       <property name="text">
-        <string>Гибрид</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <item>
+     <property name="text">
+      <string>Схема</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Спутник</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Гибрид</string>
+     </property>
+    </item>
    </widget>
   </widget>
  </widget>
