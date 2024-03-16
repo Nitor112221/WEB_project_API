@@ -16,6 +16,7 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         self.ltype = 'map'
         self.setFixedSize(self.size())
         self.delta = 0.002
+        self.point = ""
         self.update_map()
 
         self.type_map.currentTextChanged.connect(self.update_view_map)
@@ -30,9 +31,9 @@ class MainApplication(QMainWindow, Ui_MainWindow):
             self.ltype = 'sat,skl'
         self.update_map()
 
-    def update_map(self, flags=""):
+    def update_map(self):
         pixmap = backend.get_map(lon=str(self.lon), lat=str(self.lat), delta=str(self.delta),
-                                 ltype=self.ltype, flags=flags)
+                                 ltype=self.ltype, flags=self.point)
         if pixmap is None:
             print('Неудачный запрос :(, попробуйте сново')
             return
@@ -69,7 +70,8 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         coods = backend.get_coordinate(place)
         self.lon = float(coods[0])
         self.lat = float(coods[1])
-        self.update_map(f"{self.lon},{self.lat}")
+        self.point = f"{self.lon},{self.lat}"
+        self.update_map()
 
 
 app = QApplication(sys.argv)
