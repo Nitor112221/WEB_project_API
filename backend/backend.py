@@ -41,16 +41,13 @@ def get_coordinate(place):
 
         try:
             res = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
-
             coords = res["Point"]["pos"]
             address = res["metaDataProperty"]["GeocoderMetaData"]["text"]
-
             try:
                 post_index = res['metaDataProperty']['GeocoderMetaData']['Address']['postal_code']
 
             except Exception:
                 post_index = '-'
-
             return coords.split(), address, post_index
         except Exception:
             return None
