@@ -30,8 +30,9 @@ class MainApplication(QMainWindow, Ui_MainWindow):
             self.ltype = 'sat,skl'
         self.update_map()
 
-    def update_map(self):
-        pixmap = backend.get_map(lon=str(self.lon), lat=str(self.lat), delta=str(self.delta), ltype=self.ltype)
+    def update_map(self, flags=""):
+        pixmap = backend.get_map(lon=str(self.lon), lat=str(self.lat), delta=str(self.delta),
+                                 ltype=self.ltype, flags=flags)
         if pixmap is None:
             print('Неудачный запрос :(, попробуйте сново')
             return
@@ -65,7 +66,10 @@ class MainApplication(QMainWindow, Ui_MainWindow):
 
     def search_place(self):
         place = self.lineEdit.text()
-        print(place)
+        coods = backend.get_coordinate(place)
+        self.lon = float(coods[0])
+        self.lat = float(coods[1])
+        self.update_map(f"{self.lon},{self.lat}")
 
 
 app = QApplication(sys.argv)

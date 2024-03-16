@@ -3,22 +3,25 @@ from io import BytesIO
 
 from PyQt5.QtGui import QPixmap
 
-api_server = "http://static-maps.yandex.ru/1.x/"
+api_server_static_maps = "http://static-maps.yandex.ru/1.x/"
+api_server_geocode = "http://geocode-maps.yandex.ru/1.x/"
 
 apikey = "40d1649f-0493-4b70-98ba-98533de7710b"
-geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey={apikey}"
 
 
-def get_map(lon: str, lat: str, delta: str, ltype='map'):
+def get_map(lon: str, lat: str, delta: str, ltype='map', flags=""):
     params = {
         "ll": ",".join([lon, lat]),
         "spn": ",".join([delta, delta]),
         'l': f"{ltype}"
     }
-    response = requests.get(api_server, params=params)
+    if flags != "":
+        params["pt"] = flags
+    response = requests.get(api_server_static_maps, params=params)
     if not response:
         # обработка ошибочной ситуации
-        return None
+        print("Ошибка выполнения запроса:")
+        print("Http статус:", response.status_code, "(", response.reason, ")")
     img = BytesIO(response.content)
     qpixmap = QPixmap()
     qpixmap.loadFromData(img.read())
@@ -26,16 +29,17 @@ def get_map(lon: str, lat: str, delta: str, ltype='map'):
 
 
 def get_coordinate(place):
-    geocoder_request += f'&geocode={place}&format=json'
+    params = {
+        'apikey': apikey,
+        'geocode': place,
+        'format': 'json'
+    }
 
-    response = requests.get(geocoder_request)
+    response = requests.get(api_server_geocode, params=params)
     if response:
-        # Преобразуем ответ в json-объект
         json_response = response.json()
-        # Координаты центра топонима:
-        toponym_coodrinates = toponym["Point"]["pos"]
-        return toponym_coodrinates
+        coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"]
+        return coords.split()
     else:
         print("Ошибка выполнения запроса:")
-        print(geocoder_request)
         print("Http статус:", response.status_code, "(", response.reason, ")")
