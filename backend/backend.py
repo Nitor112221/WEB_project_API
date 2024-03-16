@@ -39,7 +39,9 @@ def get_coordinate(place):
     if response:
         json_response = response.json()
         coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"]
-        return coords.split()
+        address = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"] \
+            ["metaDataProperty"]["GeocoderMetaData"]["text"]
+        return coords.split(), address
     else:
         print("Ошибка выполнения запроса:")
         print("Http статус:", response.status_code, "(", response.reason, ")")

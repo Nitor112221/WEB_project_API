@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_map = QtWidgets.QLabel(self.centralwidget)
-        self.label_map.setGeometry(QtCore.QRect(140, 50, 500, 500))
+        self.label_map.setGeometry(QtCore.QRect(140, 0, 500, 500))
         self.label_map.setObjectName("label_map")
         self.type_map = QtWidgets.QComboBox(self.centralwidget)
         self.type_map.setGeometry(QtCore.QRect(10, 20, 69, 22))
@@ -37,6 +37,9 @@ class Ui_MainWindow(object):
         self.pushButton_reset = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_reset.setGeometry(QtCore.QRect(640, 565, 81, 31))
         self.pushButton_reset.setObjectName("pushButton_reset")
+        self.label_place = QtWidgets.QLabel(self.centralwidget)
+        self.label_place.setGeometry(QtCore.QRect(140, 530, 581, 16))
+        self.label_place.setObjectName("label_place")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -51,3 +54,4 @@ class Ui_MainWindow(object):
         self.type_map.setItemText(2, _translate("MainWindow", "Гибрид"))
         self.pushButton.setText(_translate("MainWindow", "Искать"))
         self.pushButton_reset.setText(_translate("MainWindow", "Сбросить"))
+        self.label_place.setText(_translate("MainWindow", "Адрес:"))

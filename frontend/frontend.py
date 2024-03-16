@@ -68,15 +68,19 @@ class MainApplication(QMainWindow, Ui_MainWindow):
 
     def search_place(self):
         place = self.lineEdit.text()
-        coods = backend.get_coordinate(place)
-        self.lon = float(coods[0])
-        self.lat = float(coods[1])
+        result = backend.get_coordinate(place)
+        self.lon = float(result[0][0])
+        self.lat = float(result[0][1])
         self.point = f"{self.lon},{self.lat}"
+        self.label_place.setText(f"Адрес: {result[1]}")
         self.update_map()
 
     def reset_place(self):
         self.lon = 37.530887
         self.lat = 55.703118
+        self.point = ""
+        self.lineEdit.setText("")
+        self.label_place.setText("Адрес:")
         self.update_map()
 
 

@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>50</y>
+      <y>0</y>
       <width>500</width>
       <height>500</height>
      </rect>
@@ -92,6 +92,19 @@
     </property>
     <property name="text">
      <string>Сбросить</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_place">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>530</y>
+      <width>581</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Адрес:</string>
     </property>
    </widget>
   </widget>
