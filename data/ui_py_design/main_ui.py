@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'data/ui_design/main_ui.ui'
+# Form implementation generated from reading ui file 'main_ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -11,10 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class UiMainWindow(object):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+        MainWindow.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_map = QtWidgets.QLabel(self.centralwidget)
@@ -22,6 +23,7 @@ class UiMainWindow(object):
         self.label_map.setObjectName("label_map")
         self.type_map = QtWidgets.QComboBox(self.centralwidget)
         self.type_map.setGeometry(QtCore.QRect(10, 20, 69, 22))
+        self.type_map.setFocusPolicy(QtCore.Qt.NoFocus)
         self.type_map.setObjectName("type_map")
         self.type_map.addItem("")
         self.type_map.addItem("")

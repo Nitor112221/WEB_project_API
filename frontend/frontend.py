@@ -1,12 +1,12 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from data.ui_py_design.main_ui import UiMainWindow
+from data.ui_py_design.main_ui import Ui_MainWindow
 import backend.backend as backend
 from PyQt5.QtCore import Qt
 
 
-class MainApplication(QMainWindow, UiMainWindow):
+class MainApplication(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainApplication, self).__init__()
         self.setupUi(self)
