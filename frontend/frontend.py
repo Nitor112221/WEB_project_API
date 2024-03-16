@@ -77,6 +77,7 @@ class MainApplication(QMainWindow, Ui_MainWindow):
     def reset_place(self):
         self.lon = 37.530887
         self.lat = 55.703118
+        self.lineEdit.setText('')
         self.update_map()
 
 
