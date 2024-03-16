@@ -21,6 +21,7 @@ class MainApplication(QMainWindow, Ui_MainWindow):
 
         self.type_map.currentTextChanged.connect(self.update_view_map)
         self.pushButton.clicked.connect(self.search_place)
+        self.pushButton_reset.clicked.connect(self.reset_place)
 
     def update_view_map(self):
         if self.type_map.currentText() == 'Схема':
@@ -71,6 +72,11 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         self.lon = float(coods[0])
         self.lat = float(coods[1])
         self.point = f"{self.lon},{self.lat}"
+        self.update_map()
+
+    def reset_place(self):
+        self.lon = 37.530887
+        self.lat = 55.703118
         self.update_map()
 
 
