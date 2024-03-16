@@ -17,7 +17,9 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         self.setFixedSize(self.size())
         self.delta = 0.002
         self.update_map()
+
         self.type_map.currentTextChanged.connect(self.update_view_map)
+        self.pushButton.clicked.connect(self.search_place)
 
     def update_view_map(self):
         if self.type_map.currentText() == 'Схема':
@@ -60,6 +62,10 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         elif self.lon < -90:
             self.lon += 180
         self.update_map()
+
+    def search_place(self):
+        place = self.lineEdit.text()
+        print(place)
 
 
 app = QApplication(sys.argv)
