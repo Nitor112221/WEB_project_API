@@ -38,10 +38,25 @@ def get_coordinate(place):
     response = requests.get(api_server_geocode, params=params)
     if response:
         json_response = response.json()
-        coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"]
-        address = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"] \
-            ["metaDataProperty"]["GeocoderMetaData"]["text"]
-        return coords.split(), address
+
+        try:
+            res = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
+
+            coords = res["Point"]["pos"]
+            address = res["metaDataProperty"]["GeocoderMetaData"]["text"]
+
+            try:
+                post_index = res['metaDataProperty']['GeocoderMetaData']['Address']['postal_code']
+
+            except Exception:
+                post_index = '-'
+
+            return coords.split(), address, post_index
+        except Exception:
+            return None
+
+
+
     else:
         print("Ошибка выполнения запроса:")
         print("Http статус:", response.status_code, "(", response.reason, ")")

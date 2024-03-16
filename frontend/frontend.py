@@ -17,11 +17,14 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         self.setFixedSize(self.size())
         self.delta = 0.002
         self.point = ""
+        self.post_index = ''
         self.update_map()
 
         self.type_map.currentTextChanged.connect(self.update_view_map)
         self.pushButton.clicked.connect(self.search_place)
         self.pushButton_reset.clicked.connect(self.reset_place)
+        self.radioButton_index.toggled.connect(self.set_post_index)
+
 
     def update_view_map(self):
         if self.type_map.currentText() == 'Схема':
@@ -69,11 +72,13 @@ class MainApplication(QMainWindow, Ui_MainWindow):
     def search_place(self):
         place = self.lineEdit.text()
         result = backend.get_coordinate(place)
-        self.lon = float(result[0][0])
-        self.lat = float(result[0][1])
-        self.point = f"{self.lon},{self.lat}"
-        self.label_place.setText(f"Адрес: {result[1]}")
-        self.update_map()
+        if result is not None:
+            self.lon = float(result[0][0])
+            self.lat = float(result[0][1])
+            self.point = f"{self.lon},{self.lat}"
+            self.label_place.setText(f"Адрес: {result[1]}")
+            self.post_index = result[2]
+            self.update_map()
 
     def reset_place(self):
         self.lon = 37.530887
@@ -81,7 +86,15 @@ class MainApplication(QMainWindow, Ui_MainWindow):
         self.point = ""
         self.lineEdit.setText("")
         self.label_place.setText("Адрес:")
+        self.label_index.setText(f"Почтовый индекс:")
         self.update_map()
+
+    def set_post_index(self):
+        if self.radioButton_index.isChecked():
+            self.label_index.setText(f"Почтовый индекс: {self.post_index}")
+        else:
+            self.label_index.setText(f"Почтовый индекс:")
+
 
 
 app = QApplication(sys.argv)
